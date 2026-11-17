@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlos Alberto Gamba Hernandez Ingrith yulieth Valencia Rodríguez Diana Marcela Rueda Murillo">
+
+<title>MODELOS PROBABILISTICOS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-4c7b890cc350be7067044af900615741.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-82690c064f79e4a64c8e9517891451b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #ed98b7;
+      }
+</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="estilos.css">
+</head>
+
+<body class="quarto-light">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">MODELOS PROBABILISTICOS</h1>
+            <p class="subtitle lead">TALLER 1 DE ESTADISTICA II</p>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author column-page-left">
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-heading">Afiliación</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Carlos Alberto Gamba Hernandez<br>Ingrith yulieth Valencia Rodríguez<br>Diana Marcela Rueda Murillo </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              <a href="https://www.esap.edu.co/">
+              ESCUELA SUPERIOR DE ADMINISTRACION PUBLICA
+              </a>
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta column-page-left">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Fecha de publicación</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">16 de noviembre de 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a>
+  <ul class="collapse">
+  <li><a href="#notación-básica" id="toc-notación-básica" class="nav-link" data-scroll-target="#notación-básica"><span class="header-section-number">1.1</span> Notación básica</a></li>
+  </ul></li>
+  <li><a href="#distribución-binomial" id="toc-distribución-binomial" class="nav-link" data-scroll-target="#distribución-binomial"><span class="header-section-number">2</span> Distribución binomial</a>
+  <ul class="collapse">
+  <li><a href="#qué-es" id="toc-qué-es" class="nav-link" data-scroll-target="#qué-es"><span class="header-section-number">2.1</span> ¿Qué es?</a></li>
+  <li><a href="#características" id="toc-características" class="nav-link" data-scroll-target="#características"><span class="header-section-number">2.2</span> Características</a></li>
+  <li><a href="#función-de-probabilidad" id="toc-función-de-probabilidad" class="nav-link" data-scroll-target="#función-de-probabilidad"><span class="header-section-number">2.3</span> Función de probabilidad</a></li>
+  <li><a href="#función-de-distribución-acumulada" id="toc-función-de-distribución-acumulada" class="nav-link" data-scroll-target="#función-de-distribución-acumulada"><span class="header-section-number">2.4</span> Función de distribución acumulada</a></li>
+  <li><a href="#esperanza-varianza-y-desviación-estándar" id="toc-esperanza-varianza-y-desviación-estándar" class="nav-link" data-scroll-target="#esperanza-varianza-y-desviación-estándar"><span class="header-section-number">2.5</span> Esperanza, varianza y desviación estándar</a></li>
+  <li><a href="#ejemplo-resuelto-aprobación-de-solicitudes-públicas" id="toc-ejemplo-resuelto-aprobación-de-solicitudes-públicas" class="nav-link" data-scroll-target="#ejemplo-resuelto-aprobación-de-solicitudes-públicas"><span class="header-section-number">2.6</span> Ejemplo resuelto: aprobación de solicitudes públicas</a></li>
+  <li><a href="#ejercicio-propuesto-atención-de-solicitudes" id="toc-ejercicio-propuesto-atención-de-solicitudes" class="nav-link" data-scroll-target="#ejercicio-propuesto-atención-de-solicitudes"><span class="header-section-number">2.7</span> Ejercicio propuesto: atención de solicitudes</a></li>
+  </ul></li>
+  <li><a href="#distribución-de-poisson" id="toc-distribución-de-poisson" class="nav-link" data-scroll-target="#distribución-de-poisson"><span class="header-section-number">3</span> Distribución de Poisson</a>
+  <ul class="collapse">
+  <li><a href="#qué-es-1" id="toc-qué-es-1" class="nav-link" data-scroll-target="#qué-es-1"><span class="header-section-number">3.1</span> ¿Qué es?</a></li>
+  <li><a href="#características-1" id="toc-características-1" class="nav-link" data-scroll-target="#características-1"><span class="header-section-number">3.2</span> Características</a></li>
+  <li><a href="#función-de-probabilidad-1" id="toc-función-de-probabilidad-1" class="nav-link" data-scroll-target="#función-de-probabilidad-1"><span class="header-section-number">3.3</span> Función de probabilidad</a></li>
+  <li><a href="#función-de-distribución-acumulada-1" id="toc-función-de-distribución-acumulada-1" class="nav-link" data-scroll-target="#función-de-distribución-acumulada-1"><span class="header-section-number">3.4</span> Función de distribución acumulada</a></li>
+  <li><a href="#esperanza-varianza-y-desviación-estándar-1" id="toc-esperanza-varianza-y-desviación-estándar-1" class="nav-link" data-scroll-target="#esperanza-varianza-y-desviación-estándar-1"><span class="header-section-number">3.5</span> Esperanza, varianza y desviación estándar</a></li>
+  <li><a href="#ejemplo-resuelto-llegada-de-ciudadanos-a-una-ventanilla" id="toc-ejemplo-resuelto-llegada-de-ciudadanos-a-una-ventanilla" class="nav-link" data-scroll-target="#ejemplo-resuelto-llegada-de-ciudadanos-a-una-ventanilla"><span class="header-section-number">3.6</span> Ejemplo resuelto: llegada de ciudadanos a una ventanilla</a></li>
+  <li><a href="#ejercicio-propuesto-quejas-ciudadanas" id="toc-ejercicio-propuesto-quejas-ciudadanas" class="nav-link" data-scroll-target="#ejercicio-propuesto-quejas-ciudadanas"><span class="header-section-number">3.7</span> Ejercicio propuesto: quejas ciudadanas</a></li>
+  </ul></li>
+  <li><a href="#distribución-hipergeométrica" id="toc-distribución-hipergeométrica" class="nav-link" data-scroll-target="#distribución-hipergeométrica"><span class="header-section-number">4</span> Distribución hipergeométrica</a>
+  <ul class="collapse">
+  <li><a href="#qué-es-2" id="toc-qué-es-2" class="nav-link" data-scroll-target="#qué-es-2"><span class="header-section-number">4.1</span> ¿Qué es?</a></li>
+  <li><a href="#características-2" id="toc-características-2" class="nav-link" data-scroll-target="#características-2"><span class="header-section-number">4.2</span> Características</a></li>
+  <li><a href="#función-de-probabilidad-2" id="toc-función-de-probabilidad-2" class="nav-link" data-scroll-target="#función-de-probabilidad-2"><span class="header-section-number">4.3</span> Función de probabilidad</a></li>
+  <li><a href="#función-de-distribución-acumulada-2" id="toc-función-de-distribución-acumulada-2" class="nav-link" data-scroll-target="#función-de-distribución-acumulada-2"><span class="header-section-number">4.4</span> Función de distribución acumulada</a></li>
+  <li><a href="#esperanza-varianza-y-desviación-estándar-2" id="toc-esperanza-varianza-y-desviación-estándar-2" class="nav-link" data-scroll-target="#esperanza-varianza-y-desviación-estándar-2"><span class="header-section-number">4.5</span> Esperanza, varianza y desviación estándar</a></li>
+  <li><a href="#ejemplo-resuelto-auditoría-de-expedientes" id="toc-ejemplo-resuelto-auditoría-de-expedientes" class="nav-link" data-scroll-target="#ejemplo-resuelto-auditoría-de-expedientes"><span class="header-section-number">4.6</span> Ejemplo resuelto: auditoría de expedientes</a></li>
+  <li><a href="#ejercicio-propuesto-revisión-de-beneficiarios" id="toc-ejercicio-propuesto-revisión-de-beneficiarios" class="nav-link" data-scroll-target="#ejercicio-propuesto-revisión-de-beneficiarios"><span class="header-section-number">4.7</span> Ejercicio propuesto: revisión de beneficiarios</a></li>
+  </ul></li>
+  <li><a href="#cómo-interpretar-las-expresiones-de-probabilidad" id="toc-cómo-interpretar-las-expresiones-de-probabilidad" class="nav-link" data-scroll-target="#cómo-interpretar-las-expresiones-de-probabilidad"><span class="header-section-number">5</span> Cómo interpretar las expresiones de probabilidad</a></li>
+  <li><a href="#comparación-de-los-tres-modelos" id="toc-comparación-de-los-tres-modelos" class="nav-link" data-scroll-target="#comparación-de-los-tres-modelos"><span class="header-section-number">6</span> Comparación de los tres modelos</a>
+  <ul class="collapse">
+  <li><a href="#cómo-saber-cuál-distribución-utilizar" id="toc-cómo-saber-cuál-distribución-utilizar" class="nav-link" data-scroll-target="#cómo-saber-cuál-distribución-utilizar"><span class="header-section-number">6.1</span> ¿Cómo saber cuál distribución utilizar?</a></li>
+  </ul></li>
+  <li><a href="#recomendaciones-para-resolver-ejercicios-en-un-examen" id="toc-recomendaciones-para-resolver-ejercicios-en-un-examen" class="nav-link" data-scroll-target="#recomendaciones-para-resolver-ejercicios-en-un-examen"><span class="header-section-number">7</span> Recomendaciones para resolver ejercicios en un examen</a></li>
+  <li><a href="#fórmulas-para-repasar" id="toc-fórmulas-para-repasar" class="nav-link" data-scroll-target="#fórmulas-para-repasar"><span class="header-section-number">8</span> Fórmulas para repasar</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<pre><code></code></pre>
+<div style="position:absolute; top:10px; right:10px;">
+<img src="Logo_Esap.png" width="150">
+</div>
+<style>
+body{
+  background-color:#f7f6ed;
+  font-size:130%;
+  text-align:justify;
+}
+</style>
+<section id="introducción" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
+<p>En estadística, una distribución de probabilidad permite describir los posibles valores que puede tomar una variable aleatoria y la probabilidad de que ocurra cada uno. En la Administración Pública estos modelos ayudan a analizar situaciones como la aprobación de solicitudes, la llegada de ciudadanos a una oficina, la selección de expedientes para auditoría y la identificación de errores en una muestra.</p>
+<p>Este material estudia tres modelos discretos: <strong>binomial, Poisson e hipergeométrico</strong>. Los tres trabajan con resultados contables (0, 1, 2, 3, …), pero se aplican en situaciones diferentes.</p>
+<section id="notación-básica" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="notación-básica"><span class="header-section-number">1.1</span> Notación básica</h2>
+<ul>
+<li>(X): variable aleatoria, es decir, el número de veces que ocurre el evento que estamos estudiando.</li>
+<li>(P(X=x)): probabilidad de que ocurran exactamente (x) casos.</li>
+<li>(F(x)=P(Xx)): función de distribución acumulada.</li>
+<li>(E(X)=): esperanza matemática o valor promedio esperado.</li>
+<li>(Var(X)=^2): varianza.</li>
+<li>(=): desviación estándar.</li>
+<li>(q=1-p): probabilidad de que no ocurra el éxito en un ensayo binomial.</li>
+<li>(): número de formas de elegir (x) elementos de un total de (n), sin importar el orden.</li>
+</ul>
+<p><strong>Importante:</strong> “éxito” es solamente el nombre estadístico del resultado que se quiere contar. No significa necesariamente algo bueno. Por ejemplo, en una auditoría el éxito podría definirse como encontrar un expediente con una inconsistencia.</p>
+</section>
+</section>
+<section id="distribución-binomial" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Distribución binomial</h1>
+<section id="qué-es" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="qué-es"><span class="header-section-number">2.1</span> ¿Qué es?</h2>
+<p>La distribución binomial calcula la probabilidad de obtener una cantidad determinada de éxitos en un número fijo de ensayos, cuando cada ensayo tiene únicamente dos resultados posibles (éxito o fracaso), la probabilidad de éxito es constante y los ensayos son independientes.</p>
+<p><strong>Ejemplo de idea:</strong> se revisan 10 solicitudes de un programa social. Cada solicitud puede quedar aprobada o no aprobada. Se quiere conocer la probabilidad de que exactamente 3 sean aprobadas.</p>
+</section>
+<section id="características" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="características"><span class="header-section-number">2.2</span> Características</h2>
+<ol type="1">
+<li>Existe un número fijo de ensayos, representado por (n).</li>
+<li>Cada ensayo tiene dos resultados posibles: éxito o fracaso.</li>
+<li>La probabilidad de éxito (p) es la misma en todos los ensayos.</li>
+<li>Los ensayos son independientes: el resultado de uno no cambia la probabilidad del siguiente.</li>
+<li>La variable (X) cuenta el número de éxitos y puede tomar valores de 0 a (n).</li>
+</ol>
+<p><strong>Parámetros:</strong> (n) = número de ensayos; (p) = probabilidad de éxito; (q=1-p) = probabilidad de fracaso.</p>
+</section>
+<section id="función-de-probabilidad" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="función-de-probabilidad"><span class="header-section-number">2.3</span> Función de probabilidad</h2>
+<p><span class="math display"> P(X=x)=\binom{n}{x}p^x(1-p)^{n-x},\quad x=0,1,\ldots,n </span></p>
+<p>Esta fórmula calcula la probabilidad de obtener <strong>exactamente</strong> (x) éxitos.</p>
+</section>
+<section id="función-de-distribución-acumulada" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="función-de-distribución-acumulada"><span class="header-section-number">2.4</span> Función de distribución acumulada</h2>
+<p><span class="math display"> F(x)=P(X\leq x)=\sum\_{k=0}^{^\lfloor x\rfloor}\binom{n}{k}pk(1-p)\^{n-k} </span></p>
+<p>La función acumulada suma las probabilidades desde cero hasta el valor indicado. Si (x&lt;0), vale 0; si (xn), vale 1.</p>
+</section>
+<section id="esperanza-varianza-y-desviación-estándar" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="esperanza-varianza-y-desviación-estándar"><span class="header-section-number">2.5</span> Esperanza, varianza y desviación estándar</h2>
+<p><span class="math display"> E(X)=\mu=np </span> <span class="math display"> Var(X)=\sigma^2=np(1-p)=npq </span> <span class="math display"> \sigma=\sqrt{npq} </span></p>
+<p>La esperanza indica cuántos éxitos se esperan, en promedio, en los (n) ensayos. La varianza y la desviación estándar muestran cuánto pueden variar los resultados alrededor de ese promedio.</p>
+</section>
+<section id="ejemplo-resuelto-aprobación-de-solicitudes-públicas" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="ejemplo-resuelto-aprobación-de-solicitudes-públicas"><span class="header-section-number">2.6</span> Ejemplo resuelto: aprobación de solicitudes públicas</h2>
+<p>Una alcaldía recibe solicitudes para un subsidio y, según los registros históricos, la probabilidad de que una solicitud cumpla los requisitos y sea aprobada es del 30 %. Se seleccionan 8 solicitudes independientes. Sea (X) el número de solicitudes aprobadas.</p>
+<p><strong>Identificación de datos:</strong></p>
+<ul>
+<li>(n=8): solicitudes revisadas.</li>
+<li>(p=0.30): probabilidad de aprobación.</li>
+<li>(q=1-0.30=0.70): probabilidad de no aprobación.</li>
+<li>(X): número de solicitudes aprobadas.</li>
+</ul>
+<p><strong>Probabilidad de que exactamente 2 sean aprobadas:</strong></p>
+<p><span class="math display"> P(X=2)=\binom{8}{2}(0.30)^2(0.70)^6 </span> <span class="math display"> P(X=2)=28(0.09)(0.117649)=0.2965 </span></p>
+<p>Por tanto, la probabilidad es aproximadamente <strong>29,65 %</strong>.</p>
+<p><strong>Esperanza matemática:</strong></p>
+<p><span class="math display"> E(X)=8(0.30)=2.4 </span></p>
+<p>Se esperan 2,4 solicitudes aprobadas por cada grupo de 8 solicitudes, en promedio. No significa que en un grupo real deban aprobarse 2,4 solicitudes.</p>
+<p><strong>Varianza:</strong></p>
+<p><span class="math display"> Var(X)=8(0.30)(0.70)=1.68 </span></p>
+<p><strong>Desviación estándar:</strong></p>
+<p><span class="math display"> \sigma=\sqrt{1.68}\approx1.296 </span></p>
+<p>La cantidad de aprobaciones suele presentar una dispersión aproximada de 1,296 alrededor de su promedio de 2,4.</p>
+</section>
+<section id="ejercicio-propuesto-atención-de-solicitudes" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="ejercicio-propuesto-atención-de-solicitudes"><span class="header-section-number">2.7</span> Ejercicio propuesto: atención de solicitudes</h2>
+<p>En una oficina de atención ciudadana, históricamente el 20 % de las solicitudes se resuelve el mismo día. Se seleccionan 10 solicitudes y se supone que sus resultados son independientes. Sea (X) el número de solicitudes resueltas el mismo día.</p>
+<p><strong>Datos:</strong> (n=10), (p=0.20), (q=0.80).</p>
+<p>Resuelva usando la distribución binomial:</p>
+<ol type="1">
+<li>¿Cuál es la probabilidad de que se resuelvan <strong>exactamente 3</strong> solicitudes? (P(X=3)).</li>
+<li>¿Cuál es la probabilidad de que se resuelvan <strong>más de 3</strong>? (P(X&gt;3)).</li>
+<li>¿Cuál es la probabilidad de que se resuelvan <strong>menos de 3</strong>? (P(X&lt;3)).</li>
+<li>¿Cuál es la probabilidad de que se resuelvan <strong>3 o más</strong>? (P(X)).</li>
+<li>¿Cuál es la probabilidad de que se resuelvan <strong>3 o menos</strong>? (P(X)).</li>
+<li>¿Cuál es la probabilidad de que se resuelvan <strong>entre 2 y 5, inclusive</strong>? (P(2X)).</li>
+</ol>
+</section>
+</section>
+<section id="distribución-de-poisson" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Distribución de Poisson</h1>
+<section id="qué-es-1" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="qué-es-1"><span class="header-section-number">3.1</span> ¿Qué es?</h2>
+<p>La distribución de Poisson calcula la probabilidad de que ocurra una cantidad determinada de eventos dentro de un intervalo fijo de tiempo, espacio, distancia o área, cuando los eventos ocurren de manera independiente y con una tasa promedio constante.</p>
+<p><strong>Ejemplo de idea:</strong> una oficina recibe en promedio 4 ciudadanos cada hora. Se quiere calcular la probabilidad de que lleguen exactamente 6 ciudadanos durante una hora.</p>
+</section>
+<section id="características-1" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="características-1"><span class="header-section-number">3.2</span> Características</h2>
+<ol type="1">
+<li>Cuenta eventos dentro de un intervalo definido: por ejemplo, llamadas por hora o quejas por día.</li>
+<li>Los eventos ocurren de manera independiente.</li>
+<li>La tasa promedio de ocurrencia se mantiene constante en el intervalo estudiado.</li>
+<li>En un intervalo muy pequeño, la probabilidad de que ocurran dos o más eventos es despreciable en el modelo.</li>
+<li>La variable (X) puede tomar valores enteros desde 0 hasta infinito.</li>
+<li>Su parámetro es () (lambda), que representa el número promedio de eventos por intervalo.</li>
+</ol>
+<p><strong>Atención con las unidades:</strong> si el promedio es de 12 llamadas en 3 horas, para una hora se utiliza (/3=4). El intervalo de la pregunta debe coincidir con el intervalo usado para ().</p>
+</section>
+<section id="función-de-probabilidad-1" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="función-de-probabilidad-1"><span class="header-section-number">3.3</span> Función de probabilidad</h2>
+<p><span class="math display"> P(X=x)=\frac{e^{-\lambda}\lambda^x}{x!},\quad x=0,1,2,\ldots </span></p>
+<p>Donde (e), () es el promedio de eventos en el intervalo y (x!) es el factorial de (x). Por ejemplo, (4!=4\times2\times1=24).</p>
+</section>
+<section id="función-de-distribución-acumulada-1" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="función-de-distribución-acumulada-1"><span class="header-section-number">3.4</span> Función de distribución acumulada</h2>
+<p><span class="math display"> F(x)=P(X\leq x)=\sum\_{k=0}\^{\lfloor x\rfloor}\frac{e^{-\lambda}\lambda^k}{k!} </span></p>
+<p>Suma las probabilidades desde cero hasta (x). Para (x&lt;0), la acumulada es 0.</p>
+</section>
+<section id="esperanza-varianza-y-desviación-estándar-1" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="esperanza-varianza-y-desviación-estándar-1"><span class="header-section-number">3.5</span> Esperanza, varianza y desviación estándar</h2>
+<p><span class="math display"> E(X)=\mu=\lambda </span> <span class="math display"> Var(X)=\sigma\^2=\lambda </span> <span class="math display"> \sigma=\sqrt{\lambda} </span></p>
+<p>En Poisson, la media y la varianza tienen el mismo valor. La desviación estándar es la raíz cuadrada de ese promedio.</p>
+</section>
+<section id="ejemplo-resuelto-llegada-de-ciudadanos-a-una-ventanilla" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="ejemplo-resuelto-llegada-de-ciudadanos-a-una-ventanilla"><span class="header-section-number">3.6</span> Ejemplo resuelto: llegada de ciudadanos a una ventanilla</h2>
+<p>Una oficina municipal recibe en promedio 4 ciudadanos cada hora para realizar trámites. Se supone que las llegadas cumplen las condiciones del modelo de Poisson. Sea (X) el número de ciudadanos que llegan en una hora. Calculemos la probabilidad de que lleguen exactamente 6.</p>
+<p><strong>Identificación de datos:</strong> (), (x=6).</p>
+<p><span class="math display"> P(X=6)=\frac{e^{-4}4^6}{6!} </span> <span class="math display"> P(X=6)=\frac{(0.0183156)(4096)}{720}\approx0.1042 </span></p>
+<p>La probabilidad es aproximadamente <strong>10,42 %</strong>.</p>
+<p><strong>Esperanza matemática:</strong> (E(X)=4). Se esperan 4 llegadas por hora, en promedio.</p>
+<p><strong>Varianza:</strong> (Var(X)=4).</p>
+<p><strong>Desviación estándar:</strong> (==2) ciudadanos.</p>
+</section>
+<section id="ejercicio-propuesto-quejas-ciudadanas" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="ejercicio-propuesto-quejas-ciudadanas"><span class="header-section-number">3.7</span> Ejercicio propuesto: quejas ciudadanas</h2>
+<p>La oficina de control interno de una entidad recibe en promedio 5 quejas ciudadanas por día. Suponga que las quejas ocurren de acuerdo con un modelo de Poisson. Sea (X) el número de quejas recibidas en un día. Use ().</p>
+<p>Resuelva:</p>
+<ol type="1">
+<li>¿Cuál es la probabilidad de recibir <strong>exactamente 4</strong> quejas? (P(X=4)).</li>
+<li>¿Cuál es la probabilidad de recibir <strong>más de 4</strong> quejas? (P(X&gt;4)).</li>
+<li>¿Cuál es la probabilidad de recibir <strong>menos de 4</strong> quejas? (P(X&lt;4)).</li>
+<li>¿Cuál es la probabilidad de recibir <strong>4 o más</strong> quejas? (P(X)).</li>
+<li>¿Cuál es la probabilidad de recibir <strong>4 o menos</strong> quejas? (P(X)).</li>
+<li>¿Cuál es la probabilidad de recibir <strong>entre 2 y 6 quejas, inclusive</strong>? (P(2X)).</li>
+</ol>
+</section>
+</section>
+<section id="distribución-hipergeométrica" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Distribución hipergeométrica</h1>
+<section id="qué-es-2" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="qué-es-2"><span class="header-section-number">4.1</span> ¿Qué es?</h2>
+<p>La distribución hipergeométrica calcula la probabilidad de obtener una cantidad determinada de elementos con una característica específica al seleccionar una muestra <strong>sin reemplazo</strong> de una población finita.</p>
+<p><strong>Ejemplo de idea:</strong> una entidad tiene 20 expedientes, de los cuales 8 presentan alguna inconsistencia. Se seleccionan 5 expedientes sin devolverlos al grupo. Se quiere calcular la probabilidad de encontrar exactamente 2 expedientes con inconsistencias.</p>
+</section>
+<section id="características-2" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="características-2"><span class="header-section-number">4.2</span> Características</h2>
+<ol type="1">
+<li>La población es finita y tiene un total de (N) elementos.</li>
+<li>En la población hay (K) elementos que tienen la característica de interés (éxitos) y (N-K) que no la tienen.</li>
+<li>Se selecciona una muestra de tamaño (n).</li>
+<li>La selección se realiza sin reemplazo: un elemento seleccionado no vuelve a la población antes de la siguiente selección.</li>
+<li>Los resultados de las extracciones no son independientes, porque la composición de la población cambia después de cada selección.</li>
+<li>La variable (X) cuenta cuántos elementos con la característica de interés aparecen en la muestra.</li>
+</ol>
+<p><strong>Valores posibles de (X):</strong></p>
+<p><span class="math display"> \max(0,n-(N-K))\leq X\leq\min(n,K) </span></p>
+</section>
+<section id="función-de-probabilidad-2" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="función-de-probabilidad-2"><span class="header-section-number">4.3</span> Función de probabilidad</h2>
+<p><span class="math display"> P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}} </span></p>
+<p>Donde:</p>
+<ul>
+<li>(N): total de elementos de la población.</li>
+<li>(K): total de elementos que tienen la característica estudiada.</li>
+<li>(N-K): total de elementos que no tienen esa característica.</li>
+<li>(n): tamaño de la muestra.</li>
+<li>(x): cantidad de elementos con la característica en la muestra.</li>
+</ul>
+<p>El numerador cuenta las formas de seleccionar (x) elementos con la característica y (n-x) sin ella. El denominador cuenta todas las muestras posibles de tamaño (n).</p>
+</section>
+<section id="función-de-distribución-acumulada-2" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="función-de-distribución-acumulada-2"><span class="header-section-number">4.4</span> Función de distribución acumulada</h2>
+<p><span class="math display"> F(x)=P(X\leq x)=\sum\_{k=L}\^{\lfloor x\rfloor}\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}} </span></p>
+<p>Aquí (L=(0,n-(N-K))) es el menor número posible de éxitos. La suma se realiza únicamente sobre los valores posibles de (X). Si el límite superior queda por debajo de (L), la probabilidad es 0; si alcanza el máximo posible, la probabilidad acumulada es 1.</p>
+</section>
+<section id="esperanza-varianza-y-desviación-estándar-2" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="esperanza-varianza-y-desviación-estándar-2"><span class="header-section-number">4.5</span> Esperanza, varianza y desviación estándar</h2>
+<p><span class="math display"> E(X)=\mu=n\frac{K}{N} </span></p>
+<p><span class="math display"> Var(X)=\sigma\^2=n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1} </span></p>
+<p><span class="math display"> \sigma=\sqrt{n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1}} </span></p>
+<p>El factor () se conoce como corrección por población finita. Tiene en cuenta que se selecciona sin reemplazo.</p>
+</section>
+<section id="ejemplo-resuelto-auditoría-de-expedientes" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="ejemplo-resuelto-auditoría-de-expedientes"><span class="header-section-number">4.6</span> Ejemplo resuelto: auditoría de expedientes</h2>
+<p>Una alcaldía tiene 20 expedientes de contratación. De ellos, 8 presentan inconsistencias documentales y 12 no presentan inconsistencias. Control interno selecciona 5 expedientes al azar, sin reemplazo. Sea (X) el número de expedientes con inconsistencias encontrados en la muestra.</p>
+<p><strong>Identificación de datos:</strong></p>
+<ul>
+<li>(N=20): total de expedientes.</li>
+<li>(K=8): expedientes con inconsistencias.</li>
+<li>(N-K=12): expedientes sin inconsistencias.</li>
+<li>(n=5): expedientes seleccionados.</li>
+</ul>
+<p><strong>Probabilidad de encontrar exactamente 2 con inconsistencias:</strong></p>
+<p><span class="math display"> P(X=2)=\frac{\binom{8}{2}\binom{12}{3}}{\binom{20}{5}} </span> <span class="math display"> P(X=2)=\frac{28\times220}{15504}=\frac{6160}{15504}\approx0.3973 </span></p>
+<p>La probabilidad es aproximadamente <strong>39,73 %</strong>.</p>
+<p><strong>Esperanza matemática:</strong></p>
+<p><span class="math display"> E(X)=5\left(\frac{8}{20}\right)=2 </span></p>
+<p>En muestras de 5 expedientes se esperan 2 con inconsistencias, en promedio.</p>
+<p><strong>Varianza:</strong></p>
+<p><span class="math display"> Var(X)=5(0.4)(0.6)\left(\frac{20-5}{20-1}\right)\approx0.9474 </span></p>
+<p><strong>Desviación estándar:</strong></p>
+<p><span class="math display"> \sigma=\sqrt{0.9474}\approx0.9733 </span></p>
+</section>
+<section id="ejercicio-propuesto-revisión-de-beneficiarios" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="ejercicio-propuesto-revisión-de-beneficiarios"><span class="header-section-number">4.7</span> Ejercicio propuesto: revisión de beneficiarios</h2>
+<p>Una entidad municipal tiene una lista de 30 solicitudes de apoyo. De ellas, 10 tienen documentación incompleta y 20 tienen documentación completa. Un funcionario selecciona al azar 6 solicitudes, sin reemplazo. Sea (X) el número de solicitudes con documentación incompleta que aparecen en la muestra.</p>
+<p><strong>Datos:</strong> (N=30), (K=10), (N-K=20), (n=6).</p>
+<p>Resuelva usando la distribución hipergeométrica:</p>
+<ol type="1">
+<li>¿Cuál es la probabilidad de encontrar <strong>exactamente 2</strong> solicitudes incompletas? (P(X=2)).</li>
+<li>¿Cuál es la probabilidad de encontrar <strong>más de 2</strong>? (P(X&gt;2)).</li>
+<li>¿Cuál es la probabilidad de encontrar <strong>menos de 2</strong>? (P(X&lt;2)).</li>
+<li>¿Cuál es la probabilidad de encontrar <strong>2 o más</strong>? (P(X)).</li>
+<li>¿Cuál es la probabilidad de encontrar <strong>2 o menos</strong>? (P(X)).</li>
+<li>¿Cuál es la probabilidad de encontrar <strong>entre 1 y 4 solicitudes incompletas, inclusive</strong>? (P(1X)).</li>
+</ol>
+</section>
+</section>
+<section id="cómo-interpretar-las-expresiones-de-probabilidad" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Cómo interpretar las expresiones de probabilidad</h1>
+<p>Esta tabla sirve para los tres modelos. Recuerde que las variables son discretas, por lo que se cuentan valores enteros.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lo que pregunta el enunciado</th>
+<th style="text-align: right;">Notación</th>
+<th>Cómo calcular</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exactamente 3</td>
+<td style="text-align: right;">(P(X=3))</td>
+<td>Se utiliza directamente la función de probabilidad en 3.</td>
+</tr>
+<tr class="even">
+<td>Más de 3</td>
+<td style="text-align: right;">(P(X&gt;3))</td>
+<td>(1-P(X)). También se pueden sumar los valores desde 4 en adelante.</td>
+</tr>
+<tr class="odd">
+<td>Menos de 3</td>
+<td style="text-align: right;">(P(X&lt;3))</td>
+<td>(P(X)). Se suman los valores hasta 2.</td>
+</tr>
+<tr class="even">
+<td>Mayor o igual que 3</td>
+<td style="text-align: right;">(P(X))</td>
+<td>(1-P(X)).</td>
+</tr>
+<tr class="odd">
+<td>Menor o igual que 3</td>
+<td style="text-align: right;">(P(X))</td>
+<td>Se suman los valores desde el mínimo posible hasta 3.</td>
+</tr>
+<tr class="even">
+<td>Entre 2 y 5, inclusive</td>
+<td style="text-align: right;">(P(2X))</td>
+<td>(P(X)-P(X)).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>La diferencia que más se debe recordar:</strong></p>
+<ul>
+<li>“Más de 3” excluye el 3: empieza en 4.</li>
+<li>“Menos de 3” excluye el 3: llega hasta 2.</li>
+<li>“Mayor o igual que 3” incluye el 3.</li>
+<li>“Menor o igual que 3” también incluye el 3.</li>
+<li>“Entre 2 y 5 inclusive” incluye tanto el 2 como el 5.</li>
+</ul>
+</section>
+<section id="comparación-de-los-tres-modelos" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Comparación de los tres modelos</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Binomial</th>
+<th>Poisson</th>
+<th>Hipergeométrica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Qué cuenta?</td>
+<td>Éxitos en ensayos fijos.</td>
+<td>Eventos en un intervalo.</td>
+<td>Elementos con una característica en una muestra.</td>
+</tr>
+<tr class="even">
+<td>Población o ensayos</td>
+<td>Número fijo (n).</td>
+<td>Intervalo fijo y tasa promedio.</td>
+<td>Población finita (N).</td>
+</tr>
+<tr class="odd">
+<td>Selección</td>
+<td>Ensayos independientes.</td>
+<td>Eventos independientes bajo tasa constante.</td>
+<td>Sin reemplazo.</td>
+</tr>
+<tr class="even">
+<td>Probabilidad</td>
+<td>(p) constante.</td>
+<td>Promedio ().</td>
+<td>Depende de (N,K,n).</td>
+</tr>
+<tr class="odd">
+<td>Valores de la variable</td>
+<td>De 0 a (n).</td>
+<td>De 0 a infinito.</td>
+<td>Desde ((0,n-(N-K))) hasta ((n,K)).</td>
+</tr>
+<tr class="even">
+<td>Media</td>
+<td>(np).</td>
+<td>().</td>
+<td>(nK/N).</td>
+</tr>
+<tr class="odd">
+<td>Varianza</td>
+<td>(np(1-p)).</td>
+<td>().</td>
+<td>(n(K/N)(1-K/N)((N-n)/(N-1))).</td>
+</tr>
+</tbody>
+</table>
+<section id="cómo-saber-cuál-distribución-utilizar" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="cómo-saber-cuál-distribución-utilizar"><span class="header-section-number">6.1</span> ¿Cómo saber cuál distribución utilizar?</h2>
+<ul>
+<li><strong>Binomial:</strong> si hay un número fijo de ensayos, dos resultados posibles, probabilidad constante e independencia. Ejemplo: revisar 10 solicitudes y contar cuántas se aprueban.</li>
+<li><strong>Poisson:</strong> si se cuentan eventos en un intervalo de tiempo, espacio o área y se conoce su promedio. Ejemplo: contar cuántas quejas llegan por día.</li>
+<li><strong>Hipergeométrica:</strong> si se extraen elementos de una población finita sin devolverlos. Ejemplo: seleccionar expedientes de una lista y contar cuántos tienen inconsistencias.</li>
+</ul>
+</section>
+</section>
+<section id="recomendaciones-para-resolver-ejercicios-en-un-examen" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Recomendaciones para resolver ejercicios en un examen</h1>
+<ol type="1">
+<li><strong>Lea qué está contando:</strong> aprobaciones, llegadas, quejas, expedientes con errores, etc.</li>
+<li><strong>Identifique el modelo:</strong> ensayos independientes (binomial), eventos por intervalo (Poisson) o selección sin reemplazo (hipergeométrica).</li>
+<li><strong>Escriba los datos antes de reemplazar en la fórmula.</strong> No confunda (n), (N), (K), (p) y ().</li>
+<li><strong>Traduzca las palabras a símbolos:</strong> “exactamente” es igualdad; “más de” es (&gt;); “menos de” es (&lt;); “al menos” es (); “como máximo” es ().</li>
+<li><strong>Tenga cuidado con los límites:</strong> para una variable discreta, (X&lt;3) equivale a (X), y (X&gt;3) equivale a (X).</li>
+<li><strong>Muestre la operación y la interpretación:</strong> no escriba solamente el resultado decimal. Conviértalo a porcentaje multiplicando por 100.</li>
+</ol>
+</section>
+<section id="fórmulas-para-repasar" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Fórmulas para repasar</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th>Binomial</th>
+<th>Poisson</th>
+<th>Hipergeométrica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Probabilidad</td>
+<td>(p<sup>x(1-p)</sup>{n-x})</td>
+<td>(e<sup>{-</sup>}/x!)</td>
+<td>(/)</td>
+</tr>
+<tr class="even">
+<td>Esperanza</td>
+<td>(np)</td>
+<td>()</td>
+<td>(nK/N)</td>
+</tr>
+<tr class="odd">
+<td>Varianza</td>
+<td>(np(1-p))</td>
+<td>()</td>
+<td>(n(K/N)(1-K/N)(N-n)/(N-1))</td>
+</tr>
+<tr class="even">
+<td>Desviación estándar</td>
+<td>()</td>
+<td>()</td>
+<td>()</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Idea final para recordar:</strong> binomial = número fijo de intentos; Poisson = cantidad de eventos en un intervalo; hipergeométrica = selección sin reemplazo de una población finita.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

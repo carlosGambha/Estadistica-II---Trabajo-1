@@ -1,0 +1,385 @@
+---
+title: "MODELOS PROBABILISTICOS"
+subtitle: "TALLER 1 DE ESTADISTICA II"
+author: 
+  - name: Carlos Alberto Gamba Hernandez<br>Ingrith yulieth Valencia Rodríguez<br>Diana Marcela Rueda Murillo
+    affiliation: "ESCUELA SUPERIOR DE ADMINISTRACION PUBLICA"
+    affiliation-url: "https://www.esap.edu.co/"
+date: today
+lang: es
+title-block-banner: "#ed98b7"
+
+format:
+  html:
+    page-layout: full
+    fontsize: 14pt
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    number-sections: true
+    code-fold: true
+    code-summary: "Ver código"
+    theme: dark
+    highlight-style: monokai
+    html-math-method: katex
+    smooth-scroll: true
+    link-external-newwindow: true
+    code-overflow: scroll
+    favicon: favicon.ico
+    css: estilos.css
+    
+editor: visual
+
+knitr:
+  opts_chunk:
+    message: false
+    warning: false
+    fig.align: center
+    fig.width: 6
+    fig.height: 6
+    out.width: "70%"
+---
+
+```         
+```
+
+```{=html}
+<div style="position:absolute; top:10px; right:10px;">
+<img src="Logo_Esap.png" width="150">
+</div>
+```
+
+```{=html}
+<style>
+body{
+  background-color:#f7f6ed;
+  font-size:130%;
+  text-align:justify;
+}
+</style>
+```
+
+# Introducción
+
+En estadística, una distribución de probabilidad permite describir los posibles valores que puede tomar una variable aleatoria y la probabilidad de que ocurra cada uno. En la Administración Pública estos modelos ayudan a analizar situaciones como la aprobación de solicitudes, la llegada de ciudadanos a una oficina, la selección de expedientes para auditoría y la identificación de errores en una muestra.
+
+Este material estudia tres modelos discretos: **binomial, Poisson e hipergeométrico**. Los tres trabajan con resultados contables (0, 1, 2, 3, …), pero se aplican en situaciones diferentes.
+
+## Notación básica
+
+-   (X): variable aleatoria, es decir, el número de veces que ocurre el evento que estamos estudiando.
+-   (P(X=x)): probabilidad de que ocurran exactamente (x) casos.
+-   (F(x)=P(X\leq x)): función de distribución acumulada.
+-   (E(X)=\mu): esperanza matemática o valor promedio esperado.
+-   (Var(X)=\sigma\^2): varianza.
+-   (\sigma=\sqrt{Var(X)}): desviación estándar.
+-   (q=1-p): probabilidad de que no ocurra el éxito en un ensayo binomial.
+-   (\binom{n}{x}): número de formas de elegir (x) elementos de un total de (n), sin importar el orden.
+
+**Importante:** “éxito” es solamente el nombre estadístico del resultado que se quiere contar. No significa necesariamente algo bueno. Por ejemplo, en una auditoría el éxito podría definirse como encontrar un expediente con una inconsistencia.
+
+# Distribución binomial
+
+## ¿Qué es?
+
+La distribución binomial calcula la probabilidad de obtener una cantidad determinada de éxitos en un número fijo de ensayos, cuando cada ensayo tiene únicamente dos resultados posibles (éxito o fracaso), la probabilidad de éxito es constante y los ensayos son independientes.
+
+**Ejemplo de idea:** se revisan 10 solicitudes de un programa social. Cada solicitud puede quedar aprobada o no aprobada. Se quiere conocer la probabilidad de que exactamente 3 sean aprobadas.
+
+## Características
+
+1.  Existe un número fijo de ensayos, representado por (n).
+2.  Cada ensayo tiene dos resultados posibles: éxito o fracaso.
+3.  La probabilidad de éxito (p) es la misma en todos los ensayos.
+4.  Los ensayos son independientes: el resultado de uno no cambia la probabilidad del siguiente.
+5.  La variable (X) cuenta el número de éxitos y puede tomar valores de 0 a (n).
+
+**Parámetros:** (n) = número de ensayos; (p) = probabilidad de éxito; (q=1-p) = probabilidad de fracaso.
+
+## Función de probabilidad
+
+$$ P(X=x)=\binom{n}{x}p^x(1-p)^{n-x},\quad x=0,1,\ldots,n $$
+
+Esta fórmula calcula la probabilidad de obtener **exactamente** (x) éxitos.
+
+## Función de distribución acumulada
+
+$$ F(x)=P(X\leq x)=\sum\_{k=0}^{^\lfloor x\rfloor}\binom{n}{k}pk(1-p)\^{n-k} $$
+
+La función acumulada suma las probabilidades desde cero hasta el valor indicado. Si (x\<0), vale 0; si (x\geq n), vale 1.
+
+## Esperanza, varianza y desviación estándar
+
+$$ E(X)=\mu=np $$ $$ Var(X)=\sigma^2=np(1-p)=npq $$ $$ \sigma=\sqrt{npq} $$
+
+La esperanza indica cuántos éxitos se esperan, en promedio, en los (n) ensayos. La varianza y la desviación estándar muestran cuánto pueden variar los resultados alrededor de ese promedio.
+
+## Ejemplo resuelto: aprobación de solicitudes públicas
+
+Una alcaldía recibe solicitudes para un subsidio y, según los registros históricos, la probabilidad de que una solicitud cumpla los requisitos y sea aprobada es del 30 %. Se seleccionan 8 solicitudes independientes. Sea (X) el número de solicitudes aprobadas.
+
+**Identificación de datos:**
+
+-   (n=8): solicitudes revisadas.
+-   (p=0.30): probabilidad de aprobación.
+-   (q=1-0.30=0.70): probabilidad de no aprobación.
+-   (X): número de solicitudes aprobadas.
+
+**Probabilidad de que exactamente 2 sean aprobadas:**
+
+$$ P(X=2)=\binom{8}{2}(0.30)^2(0.70)^6 $$ $$ P(X=2)=28(0.09)(0.117649)=0.2965 $$
+
+Por tanto, la probabilidad es aproximadamente **29,65 %**.
+
+**Esperanza matemática:**
+
+$$ E(X)=8(0.30)=2.4 $$
+
+Se esperan 2,4 solicitudes aprobadas por cada grupo de 8 solicitudes, en promedio. No significa que en un grupo real deban aprobarse 2,4 solicitudes.
+
+**Varianza:**
+
+$$ Var(X)=8(0.30)(0.70)=1.68 $$
+
+**Desviación estándar:**
+
+$$ \sigma=\sqrt{1.68}\approx1.296 $$
+
+La cantidad de aprobaciones suele presentar una dispersión aproximada de 1,296 alrededor de su promedio de 2,4.
+
+## Ejercicio propuesto: atención de solicitudes
+
+En una oficina de atención ciudadana, históricamente el 20 % de las solicitudes se resuelve el mismo día. Se seleccionan 10 solicitudes y se supone que sus resultados son independientes. Sea (X) el número de solicitudes resueltas el mismo día.
+
+**Datos:** (n=10), (p=0.20), (q=0.80).
+
+Resuelva usando la distribución binomial:
+
+1.  ¿Cuál es la probabilidad de que se resuelvan **exactamente 3** solicitudes? (P(X=3)).
+2.  ¿Cuál es la probabilidad de que se resuelvan **más de 3**? (P(X\>3)).
+3.  ¿Cuál es la probabilidad de que se resuelvan **menos de 3**? (P(X\<3)).
+4.  ¿Cuál es la probabilidad de que se resuelvan **3 o más**? (P(X\geq3)).
+5.  ¿Cuál es la probabilidad de que se resuelvan **3 o menos**? (P(X\leq3)).
+6.  ¿Cuál es la probabilidad de que se resuelvan **entre 2 y 5, inclusive**? (P(2\leq X\leq5)).
+
+# Distribución de Poisson
+
+## ¿Qué es?
+
+La distribución de Poisson calcula la probabilidad de que ocurra una cantidad determinada de eventos dentro de un intervalo fijo de tiempo, espacio, distancia o área, cuando los eventos ocurren de manera independiente y con una tasa promedio constante.
+
+**Ejemplo de idea:** una oficina recibe en promedio 4 ciudadanos cada hora. Se quiere calcular la probabilidad de que lleguen exactamente 6 ciudadanos durante una hora.
+
+## Características
+
+1.  Cuenta eventos dentro de un intervalo definido: por ejemplo, llamadas por hora o quejas por día.
+2.  Los eventos ocurren de manera independiente.
+3.  La tasa promedio de ocurrencia se mantiene constante en el intervalo estudiado.
+4.  En un intervalo muy pequeño, la probabilidad de que ocurran dos o más eventos es despreciable en el modelo.
+5.  La variable (X) puede tomar valores enteros desde 0 hasta infinito.
+6.  Su parámetro es (\lambda) (lambda), que representa el número promedio de eventos por intervalo.
+
+**Atención con las unidades:** si el promedio es de 12 llamadas en 3 horas, para una hora se utiliza (\lambda=12/3=4). El intervalo de la pregunta debe coincidir con el intervalo usado para (\lambda).
+
+## Función de probabilidad
+
+$$ P(X=x)=\frac{e^{-\lambda}\lambda^x}{x!},\quad x=0,1,2,\ldots $$
+
+Donde (e\approx2.71828), (\lambda) es el promedio de eventos en el intervalo y (x!) es el factorial de (x). Por ejemplo, (4!=4\times3\\times2\\times1=24).
+
+## Función de distribución acumulada
+
+$$ F(x)=P(X\leq x)=\sum\_{k=0}\^{\lfloor x\rfloor}\frac{e^{-\lambda}\lambda^k}{k!} $$
+
+Suma las probabilidades desde cero hasta (x). Para (x\<0), la acumulada es 0.
+
+## Esperanza, varianza y desviación estándar
+
+$$ E(X)=\mu=\lambda $$ $$ Var(X)=\sigma\^2=\lambda $$ $$ \sigma=\sqrt{\lambda} $$
+
+En Poisson, la media y la varianza tienen el mismo valor. La desviación estándar es la raíz cuadrada de ese promedio.
+
+## Ejemplo resuelto: llegada de ciudadanos a una ventanilla
+
+Una oficina municipal recibe en promedio 4 ciudadanos cada hora para realizar trámites. Se supone que las llegadas cumplen las condiciones del modelo de Poisson. Sea (X) el número de ciudadanos que llegan en una hora. Calculemos la probabilidad de que lleguen exactamente 6.
+
+**Identificación de datos:** (\lambda=4), (x=6).
+
+$$ P(X=6)=\frac{e^{-4}4^6}{6!} $$ $$ P(X=6)=\frac{(0.0183156)(4096)}{720}\approx0.1042 $$
+
+La probabilidad es aproximadamente **10,42 %**.
+
+**Esperanza matemática:** (E(X)=4). Se esperan 4 llegadas por hora, en promedio.
+
+**Varianza:** (Var(X)=4).
+
+**Desviación estándar:** (\sigma=\sqrt{4}=2) ciudadanos.
+
+## Ejercicio propuesto: quejas ciudadanas
+
+La oficina de control interno de una entidad recibe en promedio 5 quejas ciudadanas por día. Suponga que las quejas ocurren de acuerdo con un modelo de Poisson. Sea (X) el número de quejas recibidas en un día. Use (\lambda=5).
+
+Resuelva:
+
+1.  ¿Cuál es la probabilidad de recibir **exactamente 4** quejas? (P(X=4)).
+2.  ¿Cuál es la probabilidad de recibir **más de 4** quejas? (P(X\>4)).
+3.  ¿Cuál es la probabilidad de recibir **menos de 4** quejas? (P(X\<4)).
+4.  ¿Cuál es la probabilidad de recibir **4 o más** quejas? (P(X\geq4)).
+5.  ¿Cuál es la probabilidad de recibir **4 o menos** quejas? (P(X\leq4)).
+6.  ¿Cuál es la probabilidad de recibir **entre 2 y 6 quejas, inclusive**? (P(2\leq X\leq6)).
+
+# Distribución hipergeométrica
+
+## ¿Qué es?
+
+La distribución hipergeométrica calcula la probabilidad de obtener una cantidad determinada de elementos con una característica específica al seleccionar una muestra **sin reemplazo** de una población finita.
+
+**Ejemplo de idea:** una entidad tiene 20 expedientes, de los cuales 8 presentan alguna inconsistencia. Se seleccionan 5 expedientes sin devolverlos al grupo. Se quiere calcular la probabilidad de encontrar exactamente 2 expedientes con inconsistencias.
+
+## Características
+
+1.  La población es finita y tiene un total de (N) elementos.
+2.  En la población hay (K) elementos que tienen la característica de interés (éxitos) y (N-K) que no la tienen.
+3.  Se selecciona una muestra de tamaño (n).
+4.  La selección se realiza sin reemplazo: un elemento seleccionado no vuelve a la población antes de la siguiente selección.
+5.  Los resultados de las extracciones no son independientes, porque la composición de la población cambia después de cada selección.
+6.  La variable (X) cuenta cuántos elementos con la característica de interés aparecen en la muestra.
+
+**Valores posibles de (X):**
+
+$$ \max(0,n-(N-K))\leq X\leq\min(n,K) $$
+
+## Función de probabilidad
+
+$$ P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}} $$
+
+Donde:
+
+-   (N): total de elementos de la población.
+-   (K): total de elementos que tienen la característica estudiada.
+-   (N-K): total de elementos que no tienen esa característica.
+-   (n): tamaño de la muestra.
+-   (x): cantidad de elementos con la característica en la muestra.
+
+El numerador cuenta las formas de seleccionar (x) elementos con la característica y (n-x) sin ella. El denominador cuenta todas las muestras posibles de tamaño (n).
+
+## Función de distribución acumulada
+
+$$ F(x)=P(X\leq x)=\sum\_{k=L}\^{\lfloor x\rfloor}\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}} $$
+
+Aquí (L=\max(0,n-(N-K))) es el menor número posible de éxitos. La suma se realiza únicamente sobre los valores posibles de (X). Si el límite superior queda por debajo de (L), la probabilidad es 0; si alcanza el máximo posible, la probabilidad acumulada es 1.
+
+## Esperanza, varianza y desviación estándar
+
+$$ E(X)=\mu=n\frac{K}{N} $$
+
+$$ Var(X)=\sigma\^2=n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1} $$
+
+$$ \sigma=\sqrt{n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1}} $$
+
+El factor (\frac{N-n}{N-1}) se conoce como corrección por población finita. Tiene en cuenta que se selecciona sin reemplazo.
+
+## Ejemplo resuelto: auditoría de expedientes
+
+Una alcaldía tiene 20 expedientes de contratación. De ellos, 8 presentan inconsistencias documentales y 12 no presentan inconsistencias. Control interno selecciona 5 expedientes al azar, sin reemplazo. Sea (X) el número de expedientes con inconsistencias encontrados en la muestra.
+
+**Identificación de datos:**
+
+-   (N=20): total de expedientes.
+-   (K=8): expedientes con inconsistencias.
+-   (N-K=12): expedientes sin inconsistencias.
+-   (n=5): expedientes seleccionados.
+
+**Probabilidad de encontrar exactamente 2 con inconsistencias:**
+
+$$ P(X=2)=\frac{\binom{8}{2}\binom{12}{3}}{\binom{20}{5}} $$ $$ P(X=2)=\frac{28\times220}{15504}=\frac{6160}{15504}\approx0.3973 $$
+
+La probabilidad es aproximadamente **39,73 %**.
+
+**Esperanza matemática:**
+
+$$ E(X)=5\left(\frac{8}{20}\right)=2 $$
+
+En muestras de 5 expedientes se esperan 2 con inconsistencias, en promedio.
+
+**Varianza:**
+
+$$ Var(X)=5(0.4)(0.6)\left(\frac{20-5}{20-1}\right)\approx0.9474 $$
+
+**Desviación estándar:**
+
+$$ \sigma=\sqrt{0.9474}\approx0.9733 $$
+
+## Ejercicio propuesto: revisión de beneficiarios
+
+Una entidad municipal tiene una lista de 30 solicitudes de apoyo. De ellas, 10 tienen documentación incompleta y 20 tienen documentación completa. Un funcionario selecciona al azar 6 solicitudes, sin reemplazo. Sea (X) el número de solicitudes con documentación incompleta que aparecen en la muestra.
+
+**Datos:** (N=30), (K=10), (N-K=20), (n=6).
+
+Resuelva usando la distribución hipergeométrica:
+
+1.  ¿Cuál es la probabilidad de encontrar **exactamente 2** solicitudes incompletas? (P(X=2)).
+2.  ¿Cuál es la probabilidad de encontrar **más de 2**? (P(X\>2)).
+3.  ¿Cuál es la probabilidad de encontrar **menos de 2**? (P(X\<2)).
+4.  ¿Cuál es la probabilidad de encontrar **2 o más**? (P(X\geq2)).
+5.  ¿Cuál es la probabilidad de encontrar **2 o menos**? (P(X\leq2)).
+6.  ¿Cuál es la probabilidad de encontrar **entre 1 y 4 solicitudes incompletas, inclusive**? (P(1\leq X\leq4)).
+
+# Cómo interpretar las expresiones de probabilidad
+
+Esta tabla sirve para los tres modelos. Recuerde que las variables son discretas, por lo que se cuentan valores enteros.
+
+| Lo que pregunta el enunciado | Notación | Cómo calcular |
+|----------------------|---------------------------:|----------------------|
+| Exactamente 3 | (P(X=3)) | Se utiliza directamente la función de probabilidad en 3. |
+| Más de 3 | (P(X\>3)) | (1-P(X\leq3)). También se pueden sumar los valores desde 4 en adelante. |
+| Menos de 3 | (P(X\<3)) | (P(X\leq2)). Se suman los valores hasta 2. |
+| Mayor o igual que 3 | (P(X\geq3)) | (1-P(X\leq2)). |
+| Menor o igual que 3 | (P(X\leq3)) | Se suman los valores desde el mínimo posible hasta 3. |
+| Entre 2 y 5, inclusive | (P(2\leq X\leq5)) | (P(X\leq5)-P(X\leq1)). |
+
+**La diferencia que más se debe recordar:**
+
+-   “Más de 3” excluye el 3: empieza en 4.
+-   “Menos de 3” excluye el 3: llega hasta 2.
+-   “Mayor o igual que 3” incluye el 3.
+-   “Menor o igual que 3” también incluye el 3.
+-   “Entre 2 y 5 inclusive” incluye tanto el 2 como el 5.
+
+# Comparación de los tres modelos
+
+| Característica | Binomial | Poisson | Hipergeométrica |
+|------------------|------------------|------------------|------------------|
+| ¿Qué cuenta? | Éxitos en ensayos fijos. | Eventos en un intervalo. | Elementos con una característica en una muestra. |
+| Población o ensayos | Número fijo (n). | Intervalo fijo y tasa promedio. | Población finita (N). |
+| Selección | Ensayos independientes. | Eventos independientes bajo tasa constante. | Sin reemplazo. |
+| Probabilidad | \(p\) constante. | Promedio (\lambda). | Depende de (N,K,n). |
+| Valores de la variable | De 0 a (n). | De 0 a infinito. | Desde (\max(0,n-(N-K))) hasta (\min(n,K)). |
+| Media | (np). | (\lambda). | (nK/N). |
+| Varianza | (np(1-p)). | (\lambda). | (n(K/N)(1-K/N)((N-n)/(N-1))). |
+
+## ¿Cómo saber cuál distribución utilizar?
+
+-   **Binomial:** si hay un número fijo de ensayos, dos resultados posibles, probabilidad constante e independencia. Ejemplo: revisar 10 solicitudes y contar cuántas se aprueban.
+-   **Poisson:** si se cuentan eventos en un intervalo de tiempo, espacio o área y se conoce su promedio. Ejemplo: contar cuántas quejas llegan por día.
+-   **Hipergeométrica:** si se extraen elementos de una población finita sin devolverlos. Ejemplo: seleccionar expedientes de una lista y contar cuántos tienen inconsistencias.
+
+# Recomendaciones para resolver ejercicios en un examen
+
+1.  **Lea qué está contando:** aprobaciones, llegadas, quejas, expedientes con errores, etc.
+2.  **Identifique el modelo:** ensayos independientes (binomial), eventos por intervalo (Poisson) o selección sin reemplazo (hipergeométrica).
+3.  **Escriba los datos antes de reemplazar en la fórmula.** No confunda (n), (N), (K), (p) y (\lambda).
+4.  **Traduzca las palabras a símbolos:** “exactamente” es igualdad; “más de” es (\>); “menos de” es (\<); “al menos” es (\geq); “como máximo” es (\leq).
+5.  **Tenga cuidado con los límites:** para una variable discreta, (X\<3) equivale a (X\leq2), y (X\>3) equivale a (X\geq4).
+6.  **Muestre la operación y la interpretación:** no escriba solamente el resultado decimal. Conviértalo a porcentaje multiplicando por 100.
+
+# Fórmulas para repasar
+
+| Medida | Binomial | Poisson | Hipergeométrica |
+|------------------|------------------|------------------|------------------|
+| Probabilidad | (\binom{n}{x}p^x(1-p)^{n-x}) | (e^{-^\lambda}\lambdax/x!) | (\binom{K}{x}\binom{N-K}{n-x}/\binom{N}{n}) |
+| Esperanza | (np) | (\lambda) | (nK/N) |
+| Varianza | (np(1-p)) | (\lambda) | (n(K/N)(1-K/N)(N-n)/(N-1)) |
+| Desviación estándar | (\sqrt{np(1-p)}) | (\sqrt{\lambda}) | (\sqrt{n(K/N)(1-K/N)(N-n)/(N-1)}) |
+
+**Idea final para recordar:** binomial = número fijo de intentos; Poisson = cantidad de eventos en un intervalo; hipergeométrica = selección sin reemplazo de una población finita.
